@@ -6,11 +6,14 @@ app.delete("/api/test/:id", deleteMessage);
 
 var connectionString = 'mongodb://127.0.0.1:27017/test';
 
+console.log("Logs show up");
 if(process.env.MLAB_USERNAME) {
     var username = process.env.MLAB_USERNAME;
     var password = process.env.MLAB_PASSWORD;
     var mongo_uri = process.env.MLAB_CONNSTR;
+    console.log(username + password + mongo_uri);
     connectionString = "mongodb://" + username + ":" + password + "@" + mongu_uri;
+    console.log(connectionString);
 }
 
 var mongoose = require("mongoose");
