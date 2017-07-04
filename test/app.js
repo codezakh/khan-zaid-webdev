@@ -12,7 +12,7 @@ if(process.env.MLAB_USERNAME) {
     var password = process.env.MLAB_PASSWORD;
     var mongo_uri = process.env.MLAB_CONNSTR;
     console.log(username + password + mongo_uri);
-    connectionString = "mongodb://" + username + ":" + password + "@" + mongu_uri;
+    connectionString = "mongodb://" + username + ":" + password + "@" + mongo_uri;
     console.log(connectionString);
 }
 
