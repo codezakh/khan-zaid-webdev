@@ -4,7 +4,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
-require('./utilities/filelist');
+//require('./utilities/filelist');
 
 app.use(app.express.static(__dirname + '/public'));
 
