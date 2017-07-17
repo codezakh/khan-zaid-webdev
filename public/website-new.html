@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Websites</a>
+            <a class="navbar-brand" href="#">New Website</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -34,22 +34,50 @@
 </nav>
 
 <div class="container-fluid">
-    <ul class="list-group">
-        <li class="list-group-item active">
-            Name
-            <a href="website-new.html">
-                <span class="pull-right glyphicon glyphicon-plus whitecheckmark"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            Website 1
-            <span class="pull-right glyphicon glyphicon-cog"></span>
-        </li>
-        <li class="list-group-item">
-            Website 2
-            <span class="pull-right glyphicon glyphicon-cog"></span>
-        </li>
-    </ul>
+    <form>
+        <div class="profile-form">
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="form-group">
+                        <label for="inputName">Name</label>
+                        <input type="text" class="form-control" id="inputName" name="inputName"
+                               placeholder="website name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="form-group">
+                        <label for="inputDesc">Description</label>
+                        <textarea class="form-control"
+                                  id="inputDesc"
+                                  name="inputDesc"
+                                  placeholder="website description"
+                                  rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <a href="websites-list.html"
+                       role="button"
+                       type="submit"
+                       class="btn btn-primary btn-block">Create</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <a href="websites-list.html"
+                       role="button"
+                       type="submit"
+                       class="btn btn-danger btn-block">Cancel</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
 </div>
 
 <!-- Latest compiled and minified JavaScript -->
