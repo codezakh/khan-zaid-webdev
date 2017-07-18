@@ -29,3 +29,11 @@ body{
         bottom: 0px;
     }
 }
+
+.nav-checkbox{
+    border: 0px;
+}
+
+.glyphicon-ok {
+    color: #777777;
+}
