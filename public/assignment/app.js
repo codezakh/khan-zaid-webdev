@@ -2,4 +2,11 @@
  * Created by zaidkhan on 7/21/17.
  */
 
-angular.Module('WebAppMaker', []);
+var WebAppMaker = angular.module('WebAppMaker', []);
+WebAppMaker.controller('ReflectController', ['$scope', function($scope){
+    $scope.reflect = function(reflectThis) {
+        if (reflectThis === undefined) return "";
+        return reflectThis + "|" + reflectThis.split("").reverse().join("")
+    };
+}]);
+
