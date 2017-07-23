@@ -7,10 +7,16 @@ var WebAppMaker = angular.module('WebAppMaker', ['ngRoute']);
 router = function($routeProvider) {
     $routeProvider
         .when('/',
-            {templateUrl: "views/user/login.html"}
+            {templateUrl: "views/user/login.view.client.html"}
+        )
+        .when('/login',
+            {templateUrl: "views/user/login.view.client.html"}
+        )
+        .when('/',
+            {templateUrl: "views/user/login.view.client.html"}
         )
         .otherwise(
-            {template: 'just kill me'}
+            {templateUrl: 'views/user/login.view.client.html'}
         )
 };
 
