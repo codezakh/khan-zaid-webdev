@@ -16,30 +16,31 @@
 </head>
 
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <a class="btn btn-block btn-primary" href="login.html">
-                Clicc Me
-            </a>
+<div class="ng-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <a class="btn btn-block btn-primary" href="login.html">
+                    Clicc Me
+                </a>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div ng-controller="ReflectController">
-                <input type="text"
-                       class="form-control"
-                       placeholder="i reflect everything you type in"
-                       ng-model="reflectThis">
-                <div class="well">
-                    {{ reflect(reflectThis) }}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div ng-controller="ReflectController">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="i reflect everything you type in"
+                           ng-model="reflectThis">
+                    <div class="well">
+                        {{ reflect(reflectThis) }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

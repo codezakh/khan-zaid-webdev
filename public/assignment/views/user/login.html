@@ -1,35 +1,45 @@
-<div class="container">
-    <form>
-        <div class="login-form">
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <div class="form-group">
-                        <h2>Login</h2>
-                        <input type="text" class="form-control" name="inputUsername" placeholder="username">
+<div ng-controller="loginController">
+    <div class="container">
+        <form>
+            <div class="login-form">
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <div class="form-group">
+                            <h2>Login</h2>
+                            <input type="text"
+                                   class="form-control"
+                                   name="inputUsername"
+                                   placeholder="username">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <div class="form-group">
+                            <input type="password"
+                                   class="form-control"
+                                   name="inputPassword"
+                                   placeholder="password">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <a href="profile.html"
+                           class="btn btn-block btn-primary">Login</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <a href="register.html"
+                           class="btn btn-success btn-block">Register</a>
                     </div>
                 </div>
             </div>
-
-
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="inputPassword" placeholder="password">
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <a href="profile.html" class="btn btn-block btn-primary">Login</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <a href="register.html" class="btn btn-success btn-block">Register</a>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
