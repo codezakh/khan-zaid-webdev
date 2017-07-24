@@ -46,6 +46,14 @@ router = function($routeProvider) {
             '/user/:uid/website/:wid/page/:pid',
             {templateUrl: "views/page/page-edit.view.client.html"}
         )
+        .when(
+            '/user/:uid/website/:wid/page/:pid/widget',
+            {templateUrl: "views/widget/widget-list.view.client.html"}
+        )
+        .when(
+            '/user/:uid/website/:wid/page/:pid/widget/new',
+            {templateUrl: "views/widget/widget-chooser.view.client.html"}
+        )
         .otherwise(
             {templateUrl: 'views/user/login.view.client.html'}
         )
