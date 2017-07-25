@@ -36,12 +36,26 @@ describe('UserService', function() {
         UserService = _UserService_;
     }));
 
-    it("should do something", function(){
-        expect(UserService.sprongle()).toEqual(1);
-    });
-
     it("should let you find a user by id", function(){
         var user = UserService.findUserById("123");
         expect(user._id).toEqual("123");
+    });
+
+    it("should let you find a user by username", function(){
+        var user = UserService.findUserByUsername('alice');
+        expect(user.username).toEqual('alice');
+    });
+
+    it("should let you find a user by credentials", function(){
+        var user = UserService.findUserByCredentials("alice", "alice");
+        expect(user.username).toEqual('alice');
+        expect(user.password).toEqual('alice');
+    });
+
+    it("should let you update a user", function(){
+       var user = UserService.updateUser("123", {username: "gooliusBoozler"});
+       user = UserService.findUserByUsername("gooliusBoozler");
+       expect(user).not.toBeUndefined();
+       expect(user.username).toEqual("gooliusBoozler");
     });
 });

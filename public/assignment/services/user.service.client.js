@@ -3,10 +3,6 @@
         .module("WebAppMaker")
         .factory("UserService", ['$http', function ($http)
     {
-        var minisprongle = 2;
-        var sprongle = function () {
-            return minisprongle;
-        };
         var users = [
             {
                 _id: "123",
@@ -42,12 +38,26 @@
             return _.find(users, ['_id', userId]);
         };
 
+        var findUserByUsername = function(username) {
+            return _.find(users, ['username', username]);
+        };
+
+        var findUserByCredentials = function(username, password) {
+            return _.find(users, {username: username, password: password});
+        };
+
+        var updateUser = function(userId, user) {
+            var user_to_modify = findUserById(userId);
+            return _.assign(user_to_modify, user);
+        };
+
 
         return {
-            sprongle: sprongle,
             findUserById: findUserById,
+            findUserByUsername: findUserByUsername,
+            findUserByCredentials: findUserByCredentials,
+            updateUser: updateUser
         };
     }
-    ])
-    ;
+    ]);
 })();
