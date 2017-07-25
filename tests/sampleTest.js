@@ -109,3 +109,51 @@ describe('WebsiteService', function(){
     });
 
 });
+
+describe('PageService', function(){
+
+    var PageService;
+    var websiteId = "456";
+
+    beforeEach(module('WebAppMaker'));
+    beforeEach(inject(function(_PageService_){
+        PageService = _PageService_;
+    }));
+
+    it("should let you create a page", function(){
+        var page = PageService.createPage("1337", {
+            name: "test",
+            description: "test"
+        });
+
+        expect(PageService.findPageById(page._id)).not.toBeUndefined();
+    });
+
+    it("should let you find pages by website id", function(){
+        var pages = PageService.findPageByWebsiteId(websiteId);
+        expect(pages.length).toEqual(3);
+    });
+
+    it("should let you update a page", function(){
+        var page = PageService.createPage("1337", {
+            name: "test",
+            description: "test"
+        });
+
+        PageService.updatePage(page._id, {description: "new description"});
+
+        page = PageService.findPageById(page._id);
+        expect(page.description).toEqual("new description");
+    });
+
+    it("should let you delete a page", function(){
+        var page = PageService.createPage("1337", {
+            name: "test",
+            description: "test"
+        });
+
+        PageService.deletePage(page._id);
+        expect(PageService.findPageById(page._id)).toBeUndefined();
+    })
+
+});
