@@ -59,3 +59,53 @@ describe('UserService', function() {
        expect(user.username).toEqual("gooliusBoozler");
     });
 });
+
+
+describe('WebsiteService', function(){
+
+    var WebsiteService;
+    var userId = "123";
+
+    beforeEach(module('WebAppMaker'));
+    beforeEach(inject(function(_WebsiteService_){
+        WebsiteService = _WebsiteService_;
+    }));
+
+    it("should let you create a website", function(){
+        var website = WebsiteService.createWebsite(userId, {
+            name: 'Test',
+            description: 'Test'
+        });
+
+        expect(WebsiteService.findWebsiteById(website._id)).not.toBeUndefined();
+    });
+
+    it("should let you find websites by user", function(){
+        var websites = WebsiteService.findWebsitesByUser(userId);
+        expect(websites.length).toEqual(3);
+    });
+
+    it("should let you update websites", function(){
+        var website = WebsiteService.createWebsite(userId, {
+            name: 'Test',
+            description: 'Test'
+        });
+
+        WebsiteService.updateWebsite(website._id, {description: "new description"});
+
+        expect(WebsiteService.findWebsiteById(website._id).description)
+            .toEqual("new description");
+    });
+
+    it("should let you delete websites", function(){
+        var website = WebsiteService.createWebsite(userId, {
+            name: 'Test',
+            description: 'Test'
+        });
+
+        WebsiteService.deleteWebsite(website._id);
+
+        expect(WebsiteService.findWebsiteById(website._id)).toBeUndefined();
+    });
+
+});
