@@ -24,3 +24,19 @@ describe('userController', function () {
     });
 
 });
+
+
+describe('UserService', function() {
+
+    var UserService;
+
+    beforeEach(module('WebAppMaker'));
+
+    beforeEach(inject(function(_UserService_){
+        UserService = _UserService_;
+    }));
+
+    it("should do something", function(){
+        expect(UserService.sprongle()).toEqual(1);
+    })
+});
