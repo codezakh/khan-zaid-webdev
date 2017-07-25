@@ -38,5 +38,10 @@ describe('UserService', function() {
 
     it("should do something", function(){
         expect(UserService.sprongle()).toEqual(1);
-    })
+    });
+
+    it("should let you find a user by id", function(){
+        var user = UserService.findUserById("123");
+        expect(user._id).toEqual("123");
+    });
 });
