@@ -3,6 +3,12 @@
         .module("WebAppMaker")
         .factory("UserService", ['$http', function ($http)
     {
+        var api = {
+            findUserById: undefined,
+            findUserByUsername: undefined,
+            findUserByCredentials: undefined,
+            updateUser: undefined
+        };
         var users = [
             {
                 _id: "123",
@@ -34,30 +40,24 @@
             }
         ];
 
-        var findUserById = function (userId) {
+        api.findUserById = function (userId) {
             return _.find(users, ['_id', userId]);
         };
 
-        var findUserByUsername = function(username) {
+        api.findUserByUsername = function(username) {
             return _.find(users, ['username', username]);
         };
 
-        var findUserByCredentials = function(username, password) {
+        api.findUserByCredentials = function(username, password) {
             return _.find(users, {username: username, password: password});
         };
 
-        var updateUser = function(userId, user) {
-            var user_to_modify = findUserById(userId);
+        api.updateUser = function(userId, user) {
+            var user_to_modify = api.findUserById(userId);
             return _.assign(user_to_modify, user);
         };
 
-
-        return {
-            findUserById: findUserById,
-            findUserByUsername: findUserByUsername,
-            findUserByCredentials: findUserByCredentials,
-            updateUser: updateUser
-        };
+        return api;
     }
     ]);
 })();
