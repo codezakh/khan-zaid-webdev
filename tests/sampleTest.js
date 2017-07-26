@@ -157,3 +157,54 @@ describe('PageService', function(){
     })
 
 });
+
+describe('WidgetService', function(){
+
+    var WidgetService;
+    var pageId = "321";
+
+    beforeEach(module('WebAppMaker'));
+    beforeEach(inject(function(_WidgetService_){
+        WidgetService = _WidgetService_;
+    }));
+
+    it("should let you create a widget", function(){
+        var widget = WidgetService.createWidget("7331", {
+            widgetType: "test",
+            size: "1337",
+            text: "test"
+        });
+
+        expect(WidgetService.findWidgetById(widget._id)).not.toBeUndefined();
+    });
+
+    it("should let you find a widget by page id", function(){
+        var widgets = WidgetService.findWidgetsByPageId(pageId);
+        expect(widgets.length).toEqual(7);
+    });
+
+    it("should let you update a widget", function(){
+        var widget = WidgetService.createWidget("7331", {
+            widgetType: "test",
+            size: "1337",
+            text: "test"
+        });
+
+        WidgetService.updateWidget(widget._id, {text: "new text"});
+
+        expect(WidgetService.findWidgetById(widget._id).text).toEqual("new text");
+    });
+
+    it("should let you delete a widget", function(){
+        var widget = WidgetService.createWidget("7331", {
+            widgetType: "test",
+            size: "1337",
+            text: "test"
+        });
+
+        expect(WidgetService.findWidgetById(widget._id)).not.toBeUndefined();
+        WidgetService.deleteWidget(widget._id);
+        expect(WidgetService.findWidgetById(widget._id)).toBeUndefined();
+    })
+
+});
