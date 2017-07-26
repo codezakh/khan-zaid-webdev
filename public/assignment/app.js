@@ -38,7 +38,11 @@ router = function($routeProvider) {
         )
         .when(
             '/user/:uid/website/new',
-            {templateUrl: "views/website/website-new.view.client.html"}
+            {
+                templateUrl: "views/website/website-new.view.client.html",
+                controller: "WebsiteNewController",
+                controllerAs: "model"
+            }
         )
         .when(
             '/user/:uid/website/:wid',
