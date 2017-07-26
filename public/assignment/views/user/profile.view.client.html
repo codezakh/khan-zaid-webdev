@@ -5,10 +5,11 @@
 
             <div class="navbar-header">
                 <a class="navbar-toggle collapsed nav-checkbox"
-                   href="profile.view.client.html">
+                   href
+                   ng-click="model.update()">
                     <span class="glyphicon glyphicon-ok color-me-white"></span>
                 </a>
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" >
                     Profile
                 </a>
             </div>
@@ -17,7 +18,7 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">
+                    <li><a ng-click="model.update()" href>
                         <span class="glyphicon glyphicon-ok color-me-white"></span>
                     </a></li>
                 </ul>
@@ -31,6 +32,14 @@
         <form>
             <div class="profile-form">
                 <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3"
+                         ng-show="model.profileUpdated">
+                        <div class="alert alert-success" role="alert">
+                            Profile updated!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
                         <h2>Profile</h2>
                         <div class="form-group">
@@ -39,7 +48,9 @@
                                    class="form-control"
                                    id="inputUsername"
                                    name="inputUsername"
-                                   placeholder="username">
+                                   placeholder="username"
+                                   ng-model="model.user.username"
+                            >
                         </div>
                     </div>
                 </div>
@@ -52,7 +63,9 @@
                                    class="form-control"
                                    id="inputEmail"
                                    name="inputEmail"
-                                   placeholder="email">
+                                   placeholder="email"
+                                   ng-model="model.user.email"
+                            >
                         </div>
                     </div>
                 </div>
@@ -65,7 +78,9 @@
                                    class="form-control"
                                    id="inputFirstName"
                                    name="inputFirstName"
-                                   placeholder="first name">
+                                   placeholder="first name"
+                                   ng-model="model.user.firstName"
+                            >
                         </div>
                     </div>
                 </div>
@@ -78,14 +93,17 @@
                                    class="form-control"
                                    id="inputLastName"
                                    name="inputLastName"
-                                   placeholder="last name">
+                                   placeholder="last name"
+                                   ng-model="model.user.lastName"
+                            >
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
-                        <a href="website-list.html"
+                        <a href
+                           ng-href="#!/user/{{ model.userId }}/website"
                            role="button"
                            type="submit"
                            class="btn btn-primary btn-block">Websites</a>

@@ -22,7 +22,9 @@ router = function($routeProvider) {
         )
         .when(
             '/user/:uid',
-            {templateUrl: "views/user/profile.view.client.html"}
+            {templateUrl: "views/user/profile.view.client.html",
+            controller: "ProfileController",
+            controllerAs: "model"}
         )
         .when(
             '/user/:uid/website',
