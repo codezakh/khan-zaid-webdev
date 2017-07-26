@@ -103,8 +103,10 @@
                            class="btn btn-primary btn-block">Update</a>
                         <a href
                            ng-href="#!/user/{{model.userId}}/website"
-                           class="btn btn-danger btn-block">Cancel</a>
-
+                           class="btn btn-warning btn-block">Cancel</a>
+                        <a href
+                           ng-click="model.delete()"
+                           class="btn btn-danger btn-block">Delete</a>
                     </div>
                 </form>
             </div>

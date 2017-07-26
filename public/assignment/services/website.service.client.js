@@ -81,7 +81,7 @@
 
             api.deleteWebsite = function(websiteId){
                 var websiteIdx = _.findIndex(websites, ['_id', websiteId]);
-                websites.pop(websiteIdx);
+                websites.splice(websiteIdx, 1);
             };
 
             return api;
