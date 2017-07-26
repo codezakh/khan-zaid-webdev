@@ -84,7 +84,7 @@
 
             api.deleteWidget = function(widgetId){
                 var widgetIdx = _.findIndex(widgets, ['_id', widgetId]);
-                widgets.pop(widgetIdx);
+                widgets.splice(widgetIdx, 1);
             };
 
             return api;

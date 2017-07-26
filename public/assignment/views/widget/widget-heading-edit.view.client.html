@@ -1,51 +1,5 @@
 <div>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-
-            <div class="navbar-header">
-                <a class="navbar-toggle collapsed nav-checkbox"
-                   href="profile.html">
-                    <span class="glyphicon glyphicon-ok color-me-white"></span>
-                </a>
-                <a class="navbar-brand" href="#">
-                    <span class="glyphicon glyphicon-menu-left"></span>
-                    Widget Edit
-                </a>
-            </div>
-
-            <!--Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse"
-                 id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">
-                        <span class="glyphicon glyphicon-ok color-me-white"></span>
-                    </a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-
-
-        </div>
-    </nav>
-
     <div class="container-fluid">
-        <div class="row">
-
-            <div class="col-xs-12">
-
-                <div class="form-group">
-                    <label for="inputWidgetName">Widget Name</label>
-                    <input type="text"
-                           class="form-control"
-                           id="inputWidgetName"
-                           name="inputWidgetName"
-                           placeholder="widget name"
-                    >
-                </div>
-
-            </div>
-
-        </div>
         <div class="row">
 
             <div class="col-xs-12">
@@ -56,6 +10,8 @@
                            id="inputWidgetText"
                            name="inputWidgetText"
                            placeholder="widget text"
+                           ng-model="model.widget.text"
+
                     >
                 </div>
             </div>
@@ -72,31 +28,12 @@
                            id="inputWidgetSize"
                            name="inputWidgetSize"
                            placeholder="1"
+                           ng-model="model.widget.size";
                     >
                 </div>
             </div>
 
         </div>
 
-        <div class="row">
-            <div class="col-xs-8 col-xs-offset-2">
-                <a href="website-list.html"
-                   role="button"
-                   type="submit"
-                   class="btn btn-danger btn-block">Delete</a>
-            </div>
-        </div>
-
     </div>
-
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header pull-right">
-                <a class="navbar-brand" href="profile.html">
-                    <span class="glyphicon glyphicon-user color-me-white"></span>
-                </a>
-            </div>
-        </div><!-- /.container-fluid -->
-    </nav>
 </div>
