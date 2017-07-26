@@ -29,8 +29,15 @@
     </nav>
 
     <div class="container-fluid">
-
+        <div class="row" ng-show="model.noPagesWarning">
+            <div class="col-xs-6">
+                <div class="alert alert-warning">
+                    This website has no pages. Click the plus sign to get started!
+                </div>
+            </div>
+        </div>
         <div class="row">
+
 
             <div class="col-xs-12">
                 <ul class="list-group">

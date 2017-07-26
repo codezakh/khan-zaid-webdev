@@ -66,7 +66,7 @@
 
             api.deletePage = function(pageId){
                 var pageIdx = _.findIndex(pages, ['_id', pageId]);
-                pages.pop(pageIdx);
+                pages.splice(pageIdx, 1);
             };
 
             return api;

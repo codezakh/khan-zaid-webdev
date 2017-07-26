@@ -5,7 +5,10 @@
         model.userId = $routeParams['uid'];
         model.websiteId = $routeParams['wid'];
         model.pages = PageService.findPageByWebsiteId(model.websiteId);
-        console.log(model.pages)
+        model.noPagesWarning = false;
+        if (model.pages.length == 0){
+           model.noPagesWarning = true;
+        }
 
     });
 })();
