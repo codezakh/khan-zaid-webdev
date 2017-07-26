@@ -8,7 +8,9 @@ router = function($routeProvider) {
     $routeProvider
         .when(
             '/',
-            {templateUrl: "views/user/login.view.client.html"}
+            {
+                templateUrl: "views/user/login.view.client.html",
+            }
         )
         .when(
             '/login',
@@ -69,13 +71,13 @@ WebAppMaker.controller('ReflectController', ['$scope', function($scope){
     };
 }]);
 
-loginController = function($scope) {
-    console.log("Hello from loginController");
-
-    $scope.sum = function() {
-        $scope.z = $scope.x + $scope.y;
-    }
-};
-WebAppMaker.controller("loginController", ["$scope", loginController]);
+// loginController = function($scope) {
+//     console.log("Hello from loginController");
+//
+//     $scope.sum = function() {
+//         $scope.z = $scope.x + $scope.y;
+//     }
+// };
+// WebAppMaker.controller("loginController", ["$scope", loginController]);
 
 

@@ -1,15 +1,21 @@
-<div ng-controller="loginController">
+<div ng-controller="LoginController as model">
     <div class="container">
         <form>
             <div class="login-form">
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
+                        <div class="alert alert-danger"
+                             role="alert"
+                        ng-show="model.badCredentials">
+                            Wrong username or password.
+                        </div>
                         <div class="form-group">
                             <h2>Login</h2>
                             <input type="text"
                                    class="form-control"
                                    name="inputUsername"
-                                   placeholder="username">
+                                   placeholder="username"
+                                   ng-model="model.user.username">
                         </div>
                     </div>
                 </div>
@@ -21,7 +27,8 @@
                             <input type="password"
                                    class="form-control"
                                    name="inputPassword"
-                                   placeholder="password">
+                                   placeholder="password"
+                                   ng-model="model.user.password">
                         </div>
                     </div>
                 </div>
@@ -29,13 +36,13 @@
 
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
-                        <a href="profile.view.client.html"
-                           class="btn btn-block btn-primary">Login</a>
+                        <a class="btn btn-block btn-primary"
+                           ng-click="model.submit()">Login</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
-                        <a href="register.view.client.html"
+                        <a ng-click="model.register()"
                            class="btn btn-success btn-block">Register</a>
                     </div>
                 </div>
