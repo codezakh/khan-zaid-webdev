@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">
+                    <li><a href ng-href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
                         <span class="glyphicon glyphicon-plus color-me-white"></span>
                     </a></li>
                 </ul>
@@ -34,24 +34,18 @@
 
             <div class="col-xs-12">
                 <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="#">
-                            Page 1
-                            <span class="pull-right glyphicon glyphicon-cog"></span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            Page 2
-                            <span class="pull-right glyphicon glyphicon-cog"></span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            Page 3
-                            <span class="pull-right glyphicon glyphicon-cog"></span>
-                        </a>
-                    </li>
+                    <div ng-repeat="page in model.pages">
+                        <li class="list-group-item">
+                            <a href
+                               ng-href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
+                                {{page.name}}
+                            </a>
+                            <a href
+                               ng-href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
+                                <span class="pull-right glyphicon glyphicon-cog"></span>
+                            </a>
+                        </li>
+                    </div>
                 </ul>
             </div>
 
