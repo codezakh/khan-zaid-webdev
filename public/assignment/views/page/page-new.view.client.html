@@ -40,6 +40,7 @@
                            id="inputPageName"
                            name="inputPageName"
                            placeholder="Page Name"
+                           ng-model="model.page.name"
                     >
                 </div>
 
@@ -50,16 +51,25 @@
 
             <div class="col-xs-12">
                 <div class="form-group">
-                    <label for="inputPageTitle">Page Title</label>
+                    <label for="inputPageDesc">Page Description</label>
                     <input type="text"
                            class="form-control"
-                           id="inputPageTitle"
-                           name="inputPageTitle"
-                           placeholder="Page Title"
+                           id="inputPageDesc"
+                           name="inputPageDesc"
+                           placeholder="Page description"
+                           ng-model="model.page.description"
                     >
                 </div>
             </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <a href ng-click="model.new()" class="btn btn-success btn-block">
+                    Create Page
+                </a>
+            </div>
         </div>
     </div>
 
