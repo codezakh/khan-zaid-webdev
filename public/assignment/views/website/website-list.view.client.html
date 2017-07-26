@@ -5,7 +5,7 @@
 
             <div class="navbar-header">
                 <a class="navbar-toggle collapsed nav-checkbox"
-                   href="website-new.view.client.html">
+                   href ng-href="#!/user/{{ model.userId }}/website/new">
                     <span class="glyphicon glyphicon-plus color-me-white"></span>
                 </a>
                 <a class="navbar-brand" href="#">
@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="website-new.view.client.html">
+                    <li><a href ng-href="#!/user/{{ model.userId }}/website/new">
                         <span class="glyphicon glyphicon-plus color-me-white"></span>
                     </a></li>
                 </ul>
@@ -30,18 +30,14 @@
 
     <div class="container-fluid">
         <ul class="list-group">
+            <div ng-repeat="website in model.websites">
             <li class="list-group-item">
-                <a href="website-edit.view.client.html">
-                    Website 1
+                <a href ng-href="#!/user/{{ model.userId }}/website/{{ website._id }}">
+                    {{ website.name }}
                     <span class="pull-right glyphicon glyphicon-cog"></span>
                 </a>
             </li>
-            <li class="list-group-item">
-                <a href="website-edit.view.client.html">
-                    Website 2
-                    <span class="pull-right glyphicon glyphicon-cog"></span>
-                </a>
-            </li>
+            </div>
         </ul>
     </div>
 
