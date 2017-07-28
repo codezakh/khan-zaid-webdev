@@ -14,12 +14,14 @@
     "express": "^4.13.4",
     "express-session": "^1.15.3",
     "lodash": "^4.17.4",
+    "mocha": "^3.4.2",
     "mongojs": "^2.4.0",
     "mongoose": "^4.4.15",
     "multer": "^1.3.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "q": "^1.5.0"
+    "q": "^1.5.0",
+    "sinon": "^2.4.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.6.5",
@@ -30,6 +32,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test-be": "./node_modules/mocha/bin/mocha \"tests/server_tests.js\"",
     "start": "node server.js"
   },
   "author": "Jose G. Annunziato",
