@@ -9,5 +9,9 @@ app.set('view engine', 'ejs');
 app.use(app.express.static(__dirname + '/public'));
 
 require('./test/app');
+require('./public/assignment/backendApp')('sprongle');
+
+module.exports = app;
 
 app.listen(process.env.PORT || 3000);
+
