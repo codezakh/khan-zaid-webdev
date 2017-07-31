@@ -3,12 +3,19 @@ var assert = require('assert');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../server');
+let userService = require('../public/assignment/services/user.service.server');
+
 let should = chai.should();
 
 chai.use(chaiHttp);
 
 
 describe('the /users endpoint', () => {
+
+  beforeEach(function(){
+    userService.reset();
+  });
+
   it("should allow you to create users with a POST", (done) => {
     chai.request(server)
       .post('/api/user', {

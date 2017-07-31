@@ -8,6 +8,7 @@ router.post('/', function(request, response){
 });
 
 module.exports.router = router;
+module.exports.reset = resetData;
 
 var users = [
   {
@@ -40,10 +41,16 @@ var users = [
   }
 ];
 
+let _userResetCopy = _.cloneDeep(users);
+
+function resetData(){
+  users = _.cloneDeep(_userResetCopy);
+}
 
 function createUser(user){
   user._id = String(Number(_.last(users)._id) + 1);
   users.push(user);
+  console.log(user)
   return user;
 }
 
