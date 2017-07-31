@@ -11,7 +11,9 @@ app.use(app.express.static(__dirname + '/public'));
 require('./test/app');
 
 module.exports = app;
-require('./public/assignment/backendApp')(app);
+var apiRouter = require('./public/assignment/backendApp').router;
+
+app.use('/api', apiRouter);
 
 app.listen(process.env.PORT || 3000);
 
