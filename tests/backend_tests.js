@@ -18,7 +18,8 @@ describe('the /users endpoint', () => {
 
   it("should allow you to create users with a POST", (done) => {
     chai.request(server)
-      .post('/api/user', {
+      .post('/api/user')
+      .send({
         username: 'testusername',
         password: 'testpassword',
         firstName: 'goolius',
@@ -30,32 +31,35 @@ describe('the /users endpoint', () => {
     });
   });
 
-  it("should allow you to find users by id", function(done){
-    chai.request(server)
-      .post('/api/user', {
-        username: 'testusername',
-        password: 'testpassword',
-        firstName: 'goolius',
-        lastName: 'boozler'
-      }).end((error, response) => {
-      chai.expect(error).to.be.null;
-      chai.expect(response).to.have.status(200);
-      done();
-    });
-  });
+  // it("should allow you to find users by id", function(done){
+  //   chai.request(server)
+  //     .post('/api/user', {
+  //       username: 'testusername',
+  //       password: 'testpassword',
+  //       firstName: 'goolius',
+  //       lastName: 'boozler'
+  //     }).end((error, response) => {
+  //     chai.expect(error).to.be.null;
+  //     chai.expect(response).to.have.status(200);
+  //     done();
+  //   });
+  // });
 
   it("should allow you to find users by id", function(){
     return chai.request(server)
-      .post('/api/user', {
+      .post('/api/user')
+      .send({
         username: 'testusername',
         password: 'testpassword',
         firstName: 'goolius',
         lastName: 'boozler'
-      }).then((response) => {
+      })
+      .then((response) => {
       return chai.request(server)
-        .get(`/api/user/${response._id}`)
+        .get(`/api/user/${response.body._id}`)
         .then((response) => {
-          chai.expect(response).to.have.status(220);
+          chai.expect(response).to.have.status(200);
+          chai.expect(response.body.username).to.equal('testusername');
         })
     })
   });

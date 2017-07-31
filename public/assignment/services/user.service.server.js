@@ -7,6 +7,11 @@ router.post('/', function(request, response){
   response.send(createUser(request.body));
 });
 
+router.get('/:userId', function(request, response){
+  response.setHeader('Content-Type', 'application/json');
+  response.send(JSON.stringify(findUserById(request.params.userId)));
+})
+
 module.exports.router = router;
 module.exports.reset = resetData;
 
@@ -50,10 +55,12 @@ function resetData(){
 function createUser(user){
   user._id = String(Number(_.last(users)._id) + 1);
   users.push(user);
-  console.log(user)
   return user;
 }
 
+function findUserById(userId) {
+  return _.find(users, ['_id', userId]);
+}
 
 // const createUser = function(user) {
 //   user._id = _.last(users)._id + 1;
