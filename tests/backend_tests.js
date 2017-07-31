@@ -31,20 +31,6 @@ describe('the /users endpoint', () => {
     });
   });
 
-  // it("should allow you to find users by id", function(done){
-  //   chai.request(server)
-  //     .post('/api/user', {
-  //       username: 'testusername',
-  //       password: 'testpassword',
-  //       firstName: 'goolius',
-  //       lastName: 'boozler'
-  //     }).end((error, response) => {
-  //     chai.expect(error).to.be.null;
-  //     chai.expect(response).to.have.status(200);
-  //     done();
-  //   });
-  // });
-
   it("should allow you to find users by id", function(){
     return chai.request(server)
       .post('/api/user')
@@ -62,6 +48,50 @@ describe('the /users endpoint', () => {
           chai.expect(response.body.username).to.equal('testusername');
         })
     })
+  });
+
+  it("should allow you to find users by username", function(){
+    return chai.request(server)
+      .post('/api/user')
+      .send({
+        username: 'testusername',
+        password: 'testpassword',
+        firstName: 'goolius',
+        lastName: 'boozler'
+      })
+      .then((response) => {
+        return chai.request(server)
+          .get('/api/user')
+          .query({username: response.body.username})
+          .then((response) => {
+            chai.expect(response).to.have.status(200);
+            chai.expect(response.body.username).to.equal('testusername');
+          })
+      })
+  });
+
+  it("should allow you to find users by credentials", function(){
+    return chai.request(server)
+      .post('/api/user')
+      .send({
+        username: 'testusername',
+        password: 'testpassword',
+        firstName: 'goolius',
+        lastName: 'boozler'
+      })
+      .then((response) => {
+        return chai.request(server)
+          .get('/api/user')
+          .query({
+            username: response.body.username,
+            password: response.body.password
+          })
+          .then((response) => {
+            chai.expect(response).to.have.status(200);
+            chai.expect(response.body.username).to.equal('testusername');
+            chai.expect(response.body.password).to.equal('testpassword');
+          })
+      })
   });
 
 });

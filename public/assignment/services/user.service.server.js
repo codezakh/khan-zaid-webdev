@@ -7,10 +7,20 @@ router.post('/', function(request, response){
   response.send(createUser(request.body));
 });
 
+router.get('/', function(request, response){
+  if (_.has(request.query, 'username')) {
+    return response.send(findUserByUsername(request.query.username));
+  } else if (_.has(request.query, ['username', 'password'])) {
+    return response.send(
+      findUserByCredentials(request.query.username, request.query.password)
+    );
+  }
+});
+
 router.get('/:userId', function(request, response){
   response.setHeader('Content-Type', 'application/json');
   response.send(JSON.stringify(findUserById(request.params.userId)));
-})
+});
 
 module.exports.router = router;
 module.exports.reset = resetData;
@@ -60,6 +70,14 @@ function createUser(user){
 
 function findUserById(userId) {
   return _.find(users, ['_id', userId]);
+};
+
+function findUserByUsername(username) {
+  return _.find(users, ['username', username]);
+};
+
+function findUserByCredentials(username, password) {
+  return _.find(users, {username: username, password: password});
 }
 
 // const createUser = function(user) {
