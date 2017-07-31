@@ -18,8 +18,19 @@ router.get('/', function(request, response){
 });
 
 router.get('/:userId', function(request, response){
-  response.setHeader('Content-Type', 'application/json');
-  response.send(JSON.stringify(findUserById(request.params.userId)));
+  // response.setHeader('Content-Type', 'application/json');
+  // response.send(JSON.stringify(findUserById(request.params.userId)));
+  let user = findUserById(request.params.userId);
+
+  if (_.isUndefined(user)) {
+    response.status(404).send('Not found');
+  }
+
+  response.send(user);
+});
+
+router.delete('/:userId', function(request, response){
+  response.send(deleteUser(request.params.userId));
 });
 
 module.exports.router = router;
@@ -78,6 +89,10 @@ function findUserByUsername(username) {
 
 function findUserByCredentials(username, password) {
   return _.find(users, {username: username, password: password});
+}
+
+function deleteUser(userId) {
+  return _.remove(users, (user) => _.isEqual(user._id, userId));
 }
 
 // const createUser = function(user) {

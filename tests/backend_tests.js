@@ -94,4 +94,21 @@ describe('the /users endpoint', () => {
       })
   });
 
+  it("should allow you to delete users", function(){
+    return chai.request(server)
+      .delete('/api/user/456')
+      .then((response) => {
+      chai.expect(response).to.have.status(200);
+      return chai.request(server)
+        .get('/api/user/456')
+        .query({username: response.body.username})
+        .then((response) => {
+          chai.expect(response).to.have.status(404);
+        })
+        .catch((error) => {
+          chai.expect(error).to.have.status(404);
+        })
+    })
+  });
+
 });
