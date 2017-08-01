@@ -179,4 +179,20 @@ describe('the websites endpoint', function(){
       })
   });
 
+  it("should let you delete a website by id", function(){
+    return chai.request(server)
+      .delete('/api/website/123')
+      .then(function(response){
+        chai.expect(response).to.have.status(200)
+        return chai.request(server)
+          .get('/api/website/123')
+          .then(function(response){
+            chai.expect(response).to.have.status(404);
+          })
+          .catch(function(response){
+            chai.expect(response).to.have.status(404);
+          })
+      })
+  });
+
 });

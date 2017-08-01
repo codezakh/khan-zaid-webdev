@@ -12,11 +12,19 @@ router.get('/', function(request, response){
 });
 
 router.get('/:websiteId', function(request, response){
-  response.send(findWebsiteById(request.params.websiteId));
+  let website = findWebsiteById(request.params.websiteId);
+  // response.send(findWebsiteById(request.params.websiteId));
+  if (_.isUndefined(website)) return response.status(404).send('Not found');
+
+  return response.send(website)
 });
 
 router.put('/:websiteId', function(request, response){
   response.send(updateWebsite(request.params.websiteId, request.body));
+});
+
+router.delete('/:websiteId', function(request, response){
+  response.send(deleteWebsite(request.params.websiteId));
 });
 
 
@@ -42,6 +50,10 @@ function updateWebsite(websiteId, website){
   let website_to_modify = findWebsiteById(websiteId);
   _.assign(website_to_modify, website);
   return website_to_modify;
+}
+
+function deleteWebsite(websiteId){
+  return _.remove(websites, (website) => _.isEqual(website._id, websiteId));
 }
 
 
