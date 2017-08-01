@@ -1,9 +1,12 @@
 var assert = require('assert');
 
+const _ = require('lodash');
+
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../server');
 let userService = require('../public/assignment/services/user.service.server');
+let websiteService = require('../public/assignment/services/website.service.server');
 
 let should = chai.should();
 
@@ -109,6 +112,57 @@ describe('the /users endpoint', () => {
           chai.expect(error).to.have.status(404);
         })
     })
+  });
+
+});
+
+
+describe('the websites endpoint', function(){
+
+  beforeEach(function(){
+    websiteService.reset();
+  });
+
+  it("should let you create a website", function(){
+    return chai.request(server)
+      .post('/api/user/456/website')
+      .send({
+        name: "Swagbook",
+        description: "test website"
+      })
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+      })
+  });
+
+  it("should let you find all websites by a user", function(){
+    return chai.request(server)
+      .get('/api/user/456/website')
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        chai.expect(response.body).to.have.lengthOf(3);
+        _.forEach(response.body, (website) => {
+          chai.expect(website).to.have.property('developerId', "456");
+        })
+      })
+  });
+
+  it("should let you find a website by id", function(){
+    return chai.request(server)
+      .post('/api/user/456/website')
+      .send({
+        name: "Swagbook",
+        description: "test website"
+      })
+      .then(function(response){
+        return chai.request(server)
+          .get(`/api/website/${response.body._id}`)
+          .then(function(response){
+            chai.expect(response).to.have.status(200);
+            chai.expect(response.body).to.have.property('description', "test website");
+            chai.expect(response.body).to.have.property('name', 'Swagbook');
+          })
+      })
   });
 
 });

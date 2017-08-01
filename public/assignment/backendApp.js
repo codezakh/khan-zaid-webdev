@@ -6,10 +6,12 @@
 
 const express = require('express');
 const userRouter = require('./services/user.service.server').router;
+const websiteRouter = require('./services/website.service.server').router;
 
 let apiRouter = express.Router();
 
 apiRouter.use('/user', userRouter);
+apiRouter.use('/website', websiteRouter);
 
 module.exports.router = apiRouter;
 
