@@ -8,6 +8,7 @@ let server = require('../server');
 let userService = require('../public/assignment/services/user.service.server');
 let websiteService = require('../public/assignment/services/website.service.server');
 let pageService = require('../public/assignment/services/page.service.server');
+let widgetService = require('../public/assignment/services/widget.service.server');
 
 let should = chai.should();
 
@@ -286,5 +287,26 @@ describe("the pages endpoint", function(){
       })
   })
 
+
+});
+
+describe("the widget endpoint", function(){
+
+  beforeEach(function(){
+    widgetService.reset();
+  });
+
+  it("should let you create widgets", function(){
+    return chai.request(server)
+      .post('/api/page/321/widget')
+      .send({
+        widgetType: "HEADING",
+        size: 0,
+        text: "test widget"
+      })
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+      })
+  });
 
 });

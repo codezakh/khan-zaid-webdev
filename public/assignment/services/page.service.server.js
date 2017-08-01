@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
+const widgetRouter = require('./widget.service.server').router;
 
 let router = express.Router({mergeParams: true});
 
@@ -26,6 +27,8 @@ router.put('/:pageId', function(request, response){
 router.delete('/:pageId', function(request, response){
   response.send(deletePage(request.params.pageId));
 });
+
+router.use('/:pageId/widget', widgetRouter);
 
 function createPage(websiteId, page){
   page._id = String(Number(_.last(pages)._id) + 1);
