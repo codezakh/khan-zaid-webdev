@@ -11,6 +11,10 @@ router.get('/', function(request, response){
   response.send(findAllPagesForWebsite(request.params.websiteId));
 });
 
+router.get('/:pageId', function(request, response){
+  response.send(findPageById(request.params.pageId));
+});
+
 function createPage(websiteId, page){
   page._id = String(Number(_.last(pages)._id) + 1);
   page.websiteId = websiteId;
@@ -20,6 +24,10 @@ function createPage(websiteId, page){
 
 function findAllPagesForWebsite(websiteId){
   return _.filter(pages, ['websiteId', websiteId]);
+}
+
+function findPageById(pageId){
+  return _.find(pages, ['_id', pageId]);
 }
 
 

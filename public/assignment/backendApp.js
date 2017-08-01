@@ -7,11 +7,13 @@
 const express = require('express');
 const userRouter = require('./services/user.service.server').router;
 const websiteRouter = require('./services/website.service.server').router;
+const pageRouter = require('./services/page.service.server').router;
 
-let apiRouter = express.Router();
+let apiRouter = express.Router({mergeParams: true});
 
 apiRouter.use('/user', userRouter);
 apiRouter.use('/website', websiteRouter);
+apiRouter.use('/page', pageRouter);
 
 module.exports.router = apiRouter;
 

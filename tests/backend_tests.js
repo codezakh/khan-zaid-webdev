@@ -224,7 +224,25 @@ describe("the pages endpoint", function(){
           chai.expect(page).to.have.property('websiteId', '456');
           })
       })
-  })
+  });
+
+  it("should let you find pages by page id", function () {
+    return chai.request(server)
+      .post('/api/user/456/website/456/page')
+      .send({name: "test post", description: "henlo this is a description"})
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        chai.expect(response.body).to.have.property('name', 'test post');
+        let createdPageId = response.body._id;
+        return chai.request(server)
+          .get(`/api/page/${createdPageId}`)
+          .then(function(response) {
+            chai.expect(response).to.have.status(200);
+            chai.expect(response.body).to.have.property('_id', createdPageId);
+            chai.expect(response.body).to.have.property('name', 'test post');
+          })
+      })
+  });
 
 
 });
