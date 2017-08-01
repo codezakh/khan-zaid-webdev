@@ -12,11 +12,19 @@ router.get('/', function(request, response){
 });
 
 router.get('/:pageId', function(request, response){
-  response.send(findPageById(request.params.pageId));
+  let page = findPageById(request.params.pageId);
+  if (_.isUndefined(page)) return response.status(404).send('not found')
+  // response.send(findPageById(request.params.pageId));
+
+  response.send(page)
 });
 
 router.put('/:pageId', function(request, response){
   response.send(updatePage(request.params.pageId, request.body))
+});
+
+router.delete('/:pageId', function(request, response){
+  response.send(deletePage(request.params.pageId));
 });
 
 function createPage(websiteId, page){
@@ -38,6 +46,10 @@ function updatePage(pageId, page){
   let page_to_modify = findPageById(pageId);
   _.assign(page_to_modify, page);
   return page_to_modify;
+}
+
+function deletePage(pageId){
+  return _.remove(pages, (page) => _.isEqual(page._id, pageId));
 }
 
 

@@ -263,5 +263,28 @@ describe("the pages endpoint", function(){
       })
   });
 
+  it("should let you delete a page", function(){
+    return chai.request(server)
+      .post('/api/user/456/website/456/page')
+      .send({name: 'test post', description: 'henlo this is a description'})
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        let createdPageId = response.body._id;
+        return chai.request(server)
+          .delete(`/api/page/${createdPageId}`)
+          .then(function(response){
+            chai.expect(response).to.have.status(200);
+            return chai.request(server)
+              .get(`/api/page/${createdPageId}`)
+              .then(function(response){
+                chai.expect(response).to.have.status(404);
+              })
+              .catch(function(response){
+                chai.expect(response).to.have.status(404);
+              })
+          })
+      })
+  })
+
 
 });
