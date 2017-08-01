@@ -232,7 +232,6 @@ describe("the pages endpoint", function(){
       .send({name: "test post", description: "henlo this is a description"})
       .then(function(response){
         chai.expect(response).to.have.status(200);
-        chai.expect(response.body).to.have.property('name', 'test post');
         let createdPageId = response.body._id;
         return chai.request(server)
           .get(`/api/page/${createdPageId}`)
@@ -240,6 +239,26 @@ describe("the pages endpoint", function(){
             chai.expect(response).to.have.status(200);
             chai.expect(response.body).to.have.property('_id', createdPageId);
             chai.expect(response.body).to.have.property('name', 'test post');
+          })
+      })
+  });
+
+  it("should let you update a page", function(){
+    return chai.request(server)
+      .post('/api/user/456/website/456/page')
+      .send({name: 'test post', description: 'henlo this is a description'})
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        let createdPageId = response.body._id;
+        return chai.request(server)
+          .put(`/api/page/${createdPageId}`)
+          .send({name: 'updated name'})
+          .then(function(response){
+            return chai.request(server)
+              .get(`/api/page/${createdPageId}`)
+              .then(function(response){
+                chai.expect(response.body).to.have.property('name', 'updated name')
+              })
           })
       })
   });

@@ -15,6 +15,10 @@ router.get('/:pageId', function(request, response){
   response.send(findPageById(request.params.pageId));
 });
 
+router.put('/:pageId', function(request, response){
+  response.send(updatePage(request.params.pageId, request.body))
+});
+
 function createPage(websiteId, page){
   page._id = String(Number(_.last(pages)._id) + 1);
   page.websiteId = websiteId;
@@ -28,6 +32,12 @@ function findAllPagesForWebsite(websiteId){
 
 function findPageById(pageId){
   return _.find(pages, ['_id', pageId]);
+}
+
+function updatePage(pageId, page){
+  let page_to_modify = findPageById(pageId);
+  _.assign(page_to_modify, page);
+  return page_to_modify;
 }
 
 
