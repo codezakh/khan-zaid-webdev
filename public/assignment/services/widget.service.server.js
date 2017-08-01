@@ -7,6 +7,10 @@ router.post('/', function(request, response){
   response.send(createWidget(request.params.pageId, request.body));
 });
 
+router.get('/', function(request, response){
+  response.send(findAllWidgetsForPage(request.params.pageId));
+});
+
 module.exports.reset = resetData;
 module.exports.router = router;
 
@@ -15,6 +19,10 @@ function createWidget(pageId, widget){
   widget.pageId = pageId;
   widgets.push(widget);
   return widget;
+}
+
+function findAllWidgetsForPage(pageId){
+  return _.filter(widgets, ['pageId', pageId]);
 }
 
 var widgets = [

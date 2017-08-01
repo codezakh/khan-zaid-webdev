@@ -309,4 +309,16 @@ describe("the widget endpoint", function(){
       })
   });
 
+  it("should let you find all widgets on a page", function(){
+    return chai.request(server)
+      .get('/api/page/321/widget')
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        chai.expect(response.body).to.have.lengthOf(7);
+        _.forEach(response.body, (widget) => {
+          chai.expect(widget).to.have.property('pageId', '321');
+        })
+      })
+  });
+
 });
