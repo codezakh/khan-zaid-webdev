@@ -8,12 +8,14 @@ const express = require('express');
 const userRouter = require('./services/user.service.server').router;
 const websiteRouter = require('./services/website.service.server').router;
 const pageRouter = require('./services/page.service.server').router;
+const widgetRouter = require('./services/widget.service.server').router;
 
 let apiRouter = express.Router({mergeParams: true});
 
 apiRouter.use('/user', userRouter);
 apiRouter.use('/website', websiteRouter);
 apiRouter.use('/page', pageRouter);
+apiRouter.use('/widget', widgetRouter);
 
 module.exports.router = apiRouter;
 

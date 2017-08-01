@@ -11,6 +11,13 @@ router.get('/', function(request, response){
   response.send(findAllWidgetsForPage(request.params.pageId));
 });
 
+router.get('/:widgetId', function(request, response){
+  let widget = findWidgetById(request.params.widgetId);
+  if (_.isUndefined(widget)) return response.status(404).send('Not found');
+
+  response.send(widget);
+});
+
 module.exports.reset = resetData;
 module.exports.router = router;
 
@@ -23,6 +30,10 @@ function createWidget(pageId, widget){
 
 function findAllWidgetsForPage(pageId){
   return _.filter(widgets, ['pageId', pageId]);
+}
+
+function findWidgetById(widgetId){
+  return _.find(widgets, ['_id', widgetId]);
 }
 
 var widgets = [

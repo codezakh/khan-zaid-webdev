@@ -321,4 +321,24 @@ describe("the widget endpoint", function(){
       })
   });
 
+  it("should let you find a widget by id", function(){
+    return chai.request(server)
+      .post('/api/page/321/widget')
+      .send({
+        widgetType: "HEADING",
+        size: 0,
+        text: "test widget"
+      })
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        let createdWidget = response.body
+        return chai.request(server)
+          .get(`/api/widget/${createdWidget._id}`)
+          .then(function(response){
+            chai.expect(response.body).to.have.property('_id', createdWidget._id)
+            chai.expect(response.body).to.have.property('text', 'test widget');
+          })
+      })
+  });
+
 });
