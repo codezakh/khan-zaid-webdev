@@ -341,4 +341,55 @@ describe("the widget endpoint", function(){
       })
   });
 
+  it("should allow you to update a widget", function(){
+    return chai.request(server)
+      .post('/api/page/321/widget')
+      .send({
+        widgetType: "HEADING",
+        size: 0,
+        text: "test widget"
+      })
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        let createdWidget = response.body;
+        return chai.request(server)
+          .put(`/api/widget/${createdWidget._id}`)
+          .send({text: 'this is updated text'})
+          .then(function(response){
+            chai.expect(response).to.have.status(200);
+            return chai.request(server)
+              .get(`/api/widget/${createdWidget._id}`)
+              .then(function(response){
+                chai.expect(response.body).to.have.property('text', 'this is updated text');
+              })
+          })
+      })
+  });
+
+  it("should allow you to delete a widget", function(){
+    return chai.request(server)
+      .post('/api/page/321/widget')
+      .send({
+        widgetType: "HEADING",
+        size: 0,
+        text: "test widget"
+      })
+      .then(function(response){
+        let createdWidget = response.body
+        return chai.request(server)
+          .delete(`/api/widget/${createdWidget._id}`)
+          .then(function(response){
+            chai.expect(response).to.have.status(200);
+            return chai.request(server)
+              .get(`/api/widget/${createdWidget}`)
+              .then(function(response){
+                chai.expect(response).to.have.status(404);
+              })
+              .catch(function(response){
+                chai.expect(response).to.have.status(404);
+              })
+          })
+      })
+  });
+
 });

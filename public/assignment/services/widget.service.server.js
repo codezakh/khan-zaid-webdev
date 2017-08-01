@@ -18,6 +18,14 @@ router.get('/:widgetId', function(request, response){
   response.send(widget);
 });
 
+router.put('/:widgetId', function(request, response){
+  response.send(updateWidget(request.params.widgetId, request.body));
+});
+
+router.delete('/:widgetId', function(request, response){
+  response.send(deleteWidget(request.params.widgetId));
+});
+
 module.exports.reset = resetData;
 module.exports.router = router;
 
@@ -34,6 +42,16 @@ function findAllWidgetsForPage(pageId){
 
 function findWidgetById(widgetId){
   return _.find(widgets, ['_id', widgetId]);
+}
+
+function updateWidget(widgetId, widget){
+  let widgetToUpdate = findWidgetById(widgetId);
+  _.assign(widgetToUpdate, widget)
+  return widgetToUpdate
+}
+
+function deleteWidget(widgetId){
+  return _.remove(widgets, (widget) => _.isEqual(widget._id, widgetId))
 }
 
 var widgets = [
