@@ -15,6 +15,10 @@ router.get('/:websiteId', function(request, response){
   response.send(findWebsiteById(request.params.websiteId));
 });
 
+router.put('/:websiteId', function(request, response){
+  response.send(updateWebsite(request.params.websiteId, request.body));
+});
+
 
 module.exports.router = router;
 
@@ -32,6 +36,12 @@ function findAllWebsitesByUser(userId){
 
 function findWebsiteById(websiteId){
   return _.find(websites, ['_id', websiteId]);
+}
+
+function updateWebsite(websiteId, website){
+  let website_to_modify = findWebsiteById(websiteId);
+  _.assign(website_to_modify, website);
+  return website_to_modify;
 }
 
 

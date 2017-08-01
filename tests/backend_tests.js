@@ -165,4 +165,18 @@ describe('the websites endpoint', function(){
       })
   });
 
+  it("should let you update a website by id", function(){
+    return chai.request(server)
+      .put('/api/website/123')
+      .send({description: "description updated"})
+      .then(function(response){
+        chai.expect(response).to.have.status(200)
+        return chai.request(server)
+          .get('/api/website/123')
+          .then(function(response){
+            chai.expect(response.body).to.have.property('description', 'description updated')
+          })
+      })
+  });
+
 });
