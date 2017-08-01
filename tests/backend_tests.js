@@ -206,11 +206,25 @@ describe("the pages endpoint", function(){
 
   it("should let you create a page", function(){
     return chai.request(server)
-      .post('/api/user/456/website/123/page')
+      .post('/api/user/456/website/456/page')
       .send({name: "test post", description: "henlo this is a description"})
       .then(function(response){
         chai.expect(response).to.have.status(200);
         chai.expect(response.body).to.have.property('name', 'test post');
       })
   });
+
+  it("should let you find pages by website id", function(){
+    return chai.request(server)
+      .get('/api/user/456/website/456/page')
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        chai.expect(response.body).to.have.lengthOf(3);
+        _.forEach(response.body, (page) => {
+          chai.expect(page).to.have.property('websiteId', '456');
+          })
+      })
+  })
+
+
 });

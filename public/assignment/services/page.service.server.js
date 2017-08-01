@@ -7,11 +7,19 @@ router.post('/', function(request, response){
   response.send(createPage(request.params.websiteId, request.body));
 });
 
+router.get('/', function(request, response){
+  response.send(findAllPagesForWebsite(request.params.websiteId));
+});
+
 function createPage(websiteId, page){
   page._id = String(Number(_.last(pages)._id) + 1);
   page.websiteId = websiteId;
   pages.push(page);
   return page;
+}
+
+function findAllPagesForWebsite(websiteId){
+  return _.filter(pages, ['websiteId', websiteId]);
 }
 
 
