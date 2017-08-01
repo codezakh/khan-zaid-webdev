@@ -7,6 +7,7 @@ let chaiHttp = require('chai-http');
 let server = require('../server');
 let userService = require('../public/assignment/services/user.service.server');
 let websiteService = require('../public/assignment/services/website.service.server');
+let pageService = require('../public/assignment/services/page.service.server');
 
 let should = chai.should();
 
@@ -195,4 +196,21 @@ describe('the websites endpoint', function(){
       })
   });
 
+});
+
+describe("the pages endpoint", function(){
+
+  beforeEach(function(){
+    pageService.reset();
+  });
+
+  it("should let you create a page", function(){
+    return chai.request(server)
+      .post('/api/user/456/website/123/page')
+      .send({name: "test post", description: "henlo this is a description"})
+      .then(function(response){
+        chai.expect(response).to.have.status(200);
+        chai.expect(response.body).to.have.property('name', 'test post');
+      })
+  });
 });

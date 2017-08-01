@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
+const pageRouter = require('./page.service.server').router;
 
 let router = express.Router({mergeParams: true});
 
@@ -26,6 +27,8 @@ router.put('/:websiteId', function(request, response){
 router.delete('/:websiteId', function(request, response){
   response.send(deleteWebsite(request.params.websiteId));
 });
+
+router.use('/:websiteId/page', pageRouter)
 
 
 module.exports.router = router;
