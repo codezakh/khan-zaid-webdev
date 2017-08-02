@@ -111,10 +111,26 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3">
+                        <a href
+                           ng-click="model.update()"
+                           role="button"
+                           class="btn btn-success btn-block">Update</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
                         <a href="login.view.client.html"
                            role="button"
                            type="submit"
                            class="btn btn-danger btn-block">Logout</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <a href
+                           ng-click="model.delete()"
+                           role="button"
+                           class="btn btn-danger btn-block">Delete</a>
                     </div>
                 </div>
 
