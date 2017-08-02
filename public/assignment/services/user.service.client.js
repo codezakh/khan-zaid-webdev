@@ -31,9 +31,9 @@
         return $http.post('/api/user', user);
       };
 
-      api.deleteUser(function(userId){
+      api.deleteUser = function(userId){
         return $http.delete(`/api/user/${userId}`);
-      })
+      };
 
       return api;
     }
