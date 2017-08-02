@@ -26,7 +26,11 @@ module.exports = function (config) {
 
 
         // list of files to exclude
-        exclude: [],
+        exclude: [
+          'tests/backend_tests.js',
+          'public/assignment/services/*.service.server.js',
+          'public/assignment/backendApp.js'
+        ],
 
 
         // preprocess matching files before serving them to the browser
