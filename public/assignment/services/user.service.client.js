@@ -7,7 +7,8 @@
         findUserByUsername: undefined,
         findUserByCredentials: undefined,
         updateUser: undefined,
-        createUser: undefined
+        createUser: undefined,
+        deleteUser: undefined
       };
 
       api.findUserById = function (userId) {
@@ -29,6 +30,10 @@
       api.createUser = function(user) {
         return $http.post('/api/user', user);
       };
+
+      api.deleteUser(function(userId){
+        return $http.delete(`/api/user/${userId}`);
+      })
 
       return api;
     }
