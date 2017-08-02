@@ -36,6 +36,10 @@ router.delete('/:userId', function(request, response){
   response.send(deleteUser(request.params.userId));
 });
 
+router.put('/:userId', function(request, response){
+  response.send(updateUser(request.params.userId, request.body));
+})
+
 module.exports.router = router;
 module.exports.reset = resetData;
 
@@ -97,4 +101,10 @@ function findUserByCredentials(username, password) {
 function deleteUser(userId) {
   return _.remove(users, (user) => _.isEqual(user._id, userId));
 }
+
+function updateUser(userId, user){
+  let userToUpdate = findUserById(userId);
+  _.assign(userToUpdate, user)
+  return userToUpdate;
+};
 

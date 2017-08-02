@@ -116,6 +116,32 @@ describe('the /users endpoint', () => {
     })
   });
 
+  it("should allow you to update users", function(){
+    return chai.request(server)
+      .post('/api/user')
+      .send({
+        username: 'testusername',
+        password: 'testpassword',
+        firstName: 'goolius',
+        lastName: 'boozler'
+      })
+      .then((response) => {
+        let createdUser = response.body;
+        return chai.request(server)
+          .put(`/api/user/${response.body._id}`)
+          .send({username: 'new username'})
+          .then((response) => {
+            chai.expect(response).to.have.status(200);
+            return chai.request(server)
+              .get(`/api/user/${createdUser._id}`)
+              .then(function(response){
+                chai.expect(response.body).to.have.property('username',
+                  'new username');
+              })
+          })
+      })
+  });
+
 });
 
 
