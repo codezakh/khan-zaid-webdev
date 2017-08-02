@@ -36,6 +36,19 @@ describe('UserService', function() {
         UserService = _UserService_;
     }));
 
+    it("should let you create a user", function(){
+      UserService.createUser({
+        username: "testUser",
+        password: "testPassword",
+        firstName: "bepis",
+        lastName: "conke"
+      })
+
+      let user = UserService.findUserByUsername('testUser');
+      expect(user.firstName).toEqual('bepis');
+
+    });
+
     it("should let you find a user by id", function(){
         var user = UserService.findUserById("123");
         expect(user._id).toEqual("123");
