@@ -29,13 +29,17 @@ function findUserByCredentials(username, password){
 }
 
 function updateUser(userId, user) {
-  return userModel.update({_id: userId}, {$set: user});
+  return userModel.update({_id: userId}, {$set: user, new: true})
+    .then((unused) => {
+      return userModel.findUserById(userId);
+    })
 }
 
 function deleteUser(userId) {
-  return userModel.findOneAndRemove({_id, userId});
+  return userModel.findOneAndRemove({_id: userId});
 }
 
+module.exports = userModel;
 
 // userModel.create({username: 'alice'}, function(error, user){
 //   if (error) {

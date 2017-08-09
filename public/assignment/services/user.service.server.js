@@ -3,41 +3,62 @@ const express = require('express');
 
 let router = express.Router({mergeParams: true});
 let websiteRouter = require('./website.service.server').router
+const userModel = require('../model/user/user.model.server');
 
 router.use('/:userId/website', websiteRouter);
 
 router.post('/', function(request, response){
-  response.send(createUser(request.body));
+  userModel.createUser(request.body)
+    .then((createdUser) => {
+      response.send(createdUser);
+    })
+    .catch((error) => {
+      response.send({});
+    })
 });
 
 router.get('/', function(request, response){
-  if (_.has(request.query, 'username')) {
-    return response.send(findUserByUsername(request.query.username));
-  } else if (_.has(request.query, ['username', 'password'])) {
-    return response.send(
-      findUserByCredentials(request.query.username, request.query.password)
-    );
+  if (!request.params.password) {
+    return userModel.findUserByUsername(request.query.username)
+      .then((foundUser) => {
+        response.send(foundUser);
+      });
   }
+    userModel.findUserByCredentials(request.query.username,
+      request.query.password)
+      .then((foundUser) => response.send(foundUser))
+      .catch((error) => response.status(404).send('not found'));
 });
 
 router.get('/:userId', function(request, response){
-  // response.setHeader('Content-Type', 'application/json');
-  // response.send(JSON.stringify(findUserById(request.params.userId)));
-  let user = findUserById(request.params.userId);
-
-  if (_.isUndefined(user)) {
-    response.status(404).send('Not found');
-  }
-
-  response.send(user);
+  userModel.findUserById(request.params.userId)
+    .then((foundUser) => {
+      response.send(foundUser);
+    })
+    .catch((error) => {
+      let e = error;
+      response.status(404).send(error);
+    })
 });
 
 router.delete('/:userId', function(request, response){
-  response.send(deleteUser(request.params.userId));
+  userModel.deleteUser(request.params.userId)
+    .then((userDeleted) => {
+      response.send('user deleted')
+    })
+    .catch((error) => {
+      response.status(500).send('could not delete')
+    });
 });
 
 router.put('/:userId', function(request, response){
-  response.send(updateUser(request.params.userId, request.body));
+  userModel.updateUser(request.params.userId, request.body)
+    .then((updatedUser) => {
+      response.send(updatedUser)
+    })
+    .catch((error) => {
+      response.status(500).send('couldnt update')
+    })
 })
 
 module.exports.router = router;
