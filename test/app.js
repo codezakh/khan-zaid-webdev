@@ -17,7 +17,8 @@ if(process.env.MLAB_USERNAME) {
 }
 
 var mongoose = require("mongoose");
-mongoose.connect(connectionString);
+const db = mongoose.connect(connectionString);
+module.exports.db = db;
 
 var TestSchema = mongoose.Schema({
     message: String
