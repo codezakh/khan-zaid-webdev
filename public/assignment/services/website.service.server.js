@@ -27,19 +27,21 @@ router.get('/:websiteId', function(request, response){
         response.status(404).send('not found');
       }
     });
-  // let website = findWebsiteById(request.params.websiteId);
-  // // response.send(findWebsiteById(request.params.websiteId));
-  // if (_.isUndefined(website)) return response.status(404).send('Not found');
-  //
-  // return response.send(website)
 });
 
 router.put('/:websiteId', function(request, response){
-  response.send(updateWebsite(request.params.websiteId, request.body));
+  websiteModel.updateWebsite(request.params.websiteId, request.body)
+    .then(function(updatedWebsite){
+      response.send(updatedWebsite)
+    });
+  // response.send(updateWebsite(request.params.websiteId, request.body));
 });
 
 router.delete('/:websiteId', function(request, response){
-  response.send(deleteWebsite(request.params.websiteId));
+  websiteModel.deleteWebsite(request.params.websiteId)
+    .then((websiteDeletedSucessfully) => {
+      response.send('website deleted');
+    });
 });
 
 router.use('/:websiteId/page', pageRouter)
