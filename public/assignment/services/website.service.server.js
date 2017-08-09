@@ -9,11 +9,14 @@ router.post('/', function(request, response){
     .then((createdWebsite) => {
       response.send(createdWebsite);
     });
-  // response.send(createWebsite(request.params.userId, request.body));
 });
 
 router.get('/', function(request, response){
-  response.send(findAllWebsitesByUser(request.params.userId));
+  websiteModel.findAllWebsitesForUser(request.params.userId)
+    .then((foundWebsites) => {
+      response.send(foundWebsites)
+    });
+  // response.send(findAllWebsitesByUser(request.params.userId));
 });
 
 router.get('/:websiteId', function(request, response){

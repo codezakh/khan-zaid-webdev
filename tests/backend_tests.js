@@ -1,4 +1,4 @@
-var assert = require('assert');
+const assert = require('assert');
 
 const _ = require('lodash');
 
@@ -6,7 +6,6 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../server');
 let userService = require('../public/assignment/services/user.service.server');
-let websiteService = require('../public/assignment/services/website.service.server');
 let pageService = require('../public/assignment/services/page.service.server');
 let widgetService = require('../public/assignment/services/widget.service.server');
 
@@ -159,14 +158,15 @@ describe('the /users endpoint', () => {
 
 
 describe('the websites endpoint', function(){
-  beforeEach(function(){
-    websiteService.reset();
-  });
+
+  const setUpUser = function setUp() {
+    return chai.request(server)
+      .post('/api/user')
+      .send({username: 'websitesTestUser'})
+  };
 
   it("should let you create a website", function(){
-    return chai.request(server)
-      .post('/api/user/')
-      .send({username: 'testUser'})
+      return setUpUser()
       .then(function(response){
         return chai.request(server)
           .post(`/api/user/${response.body._id}/website`)
@@ -181,15 +181,33 @@ describe('the websites endpoint', function(){
   });
 
   it("should let you find all websites by a user", function(){
-    return chai.request(server)
-      .get('/api/user/456/website')
+    return setUpUser()
       .then(function(response){
-        chai.expect(response).to.have.status(200);
-        chai.expect(response.body).to.have.lengthOf(3);
-        _.forEach(response.body, (website) => {
-          chai.expect(website).to.have.property('developerId', "456");
-        })
-      })
+        let createdUser = response.body;
+        return chai.request(server)
+          .post(`/api/user/${createdUser._id}/website`)
+          .send({
+            name: 'Swagbook'
+          })
+          .then(function(response){
+            return chai.request(server)
+              .post(`/api/user/${createdUser._id}/website`)
+              .send({
+                name: 'Swagbook2'
+              })
+              .then(function(response){
+                return chai.request(server)
+                  .get(`/api/user/${createdUser._id}/website`)
+                  .then(function(response){
+                    chai.expect(response).to.have.status(200);
+                    chai.expect(response.body).to.have.lengthOf(2);
+                    _.forEach(response.body, (website) => {
+                      chai.expect(website).to.have.property('_user', createdUser._id);
+                    })
+                  })
+              })
+          })
+      });
   });
 
   it("should let you find a website by id", function(){
