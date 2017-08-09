@@ -6,14 +6,36 @@ const userSchema = require('./user.schema.server');
 const userModel = mongoose.model('userModel', userSchema);
 
 userModel.createUser = createUser;
+userModel.findUserById = findUserById;
+userModel.findUserByUsername = findUserByUsername;
+userModel.findUserByCredentials = findUserByCredentials;
+userModel.updateUser = updateUser;
+userModel.deleteUser = deleteUser;
 
 function createUser(user) {
   return userModel.create(user)
 }
 
-createUser({username: 'alice'})
-  .then((alice) => console.log(alice))
-  .catch((error) => console.log('something went wrong!'));
+function findUserById(userId) {
+  return userModel.findOne({_id: userId});
+}
+
+function findUserByUsername(username) {
+  return userModel.findOne({username: username});
+}
+
+function findUserByCredentials(username, password){
+  return userModel.findOne({username: username, password: password})
+}
+
+function updateUser(userId, user) {
+  return userModel.update({_id: userId}, {$set: user});
+}
+
+function deleteUser(userId) {
+  return userModel.findOneAndRemove({_id, userId});
+}
+
 
 // userModel.create({username: 'alice'}, function(error, user){
 //   if (error) {
