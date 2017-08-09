@@ -11,6 +11,7 @@ userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
+userModel.addWebsiteToUser = addWebsiteToUser;
 
 function createUser(user) {
   return userModel.create(user)
@@ -39,13 +40,13 @@ function deleteUser(userId) {
   return userModel.findOneAndRemove({_id: userId});
 }
 
-module.exports = userModel;
+function addWebsiteToUser(userId, website){
+  return userModel.findOne({_id: userId})
+    .then((foundUser) => {
+      foundUser.websites.push(website._id)
+      return foundUser.save()
+    })
+}
 
-// userModel.create({username: 'alice'}, function(error, user){
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log(user);
-//   }
-// });
+module.exports = userModel;
 
