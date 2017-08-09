@@ -1,11 +1,15 @@
 const _ = require('lodash');
 const express = require('express');
 const pageRouter = require('./page.service.server').router;
-
+const websiteModel = require('../model/website/website.model.server');
 let router = express.Router({mergeParams: true});
 
 router.post('/', function(request, response){
-  response.send(createWebsite(request.params.userId, request.body));
+  websiteModel.createWebsite(request.params.userId, request.body)
+    .then((createdWebsite) => {
+      response.send(createdWebsite);
+    });
+  // response.send(createWebsite(request.params.userId, request.body));
 });
 
 router.get('/', function(request, response){

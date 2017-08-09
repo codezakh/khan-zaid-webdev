@@ -159,20 +159,24 @@ describe('the /users endpoint', () => {
 
 
 describe('the websites endpoint', function(){
-
   beforeEach(function(){
     websiteService.reset();
   });
 
   it("should let you create a website", function(){
     return chai.request(server)
-      .post('/api/user/456/website')
-      .send({
-        name: "Swagbook",
-        description: "test website"
-      })
+      .post('/api/user/')
+      .send({username: 'testUser'})
       .then(function(response){
-        chai.expect(response).to.have.status(200);
+        return chai.request(server)
+          .post(`/api/user/${response.body._id}/website`)
+          .send({
+            name: "Swagbook",
+            description: "test website"
+          })
+          .then(function(response){
+            chai.expect(response).to.have.status(200);
+          })
       })
   });
 
