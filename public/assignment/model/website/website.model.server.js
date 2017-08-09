@@ -11,6 +11,7 @@ websiteModel.findWebsiteById = findWebsiteById;
 websiteModel.findAllWebsitesForUser = findAllWebsitesForUser;
 websiteModel.updateWebsite = updateWebsite;
 websiteModel.deleteWebsite = deleteWebsite;
+websiteModel.addPageToWebsite = addPageToWebsite;
 
 function createWebsite(userId, website){
   website._user = userId;
@@ -40,6 +41,14 @@ function updateWebsite(websiteId, website) {
 
 function deleteWebsite(websiteId) {
   return websiteModel.findOneAndRemove({_id: websiteId});
+};
+
+function addPageToWebsite(websiteId, page) {
+  return websiteModel.findOne({_id: websiteId})
+    .then((foundWebsite) => {
+      foundWebsite.pages.push(page._id);
+      return foundWebsite.save();
+    });
 };
 
 
