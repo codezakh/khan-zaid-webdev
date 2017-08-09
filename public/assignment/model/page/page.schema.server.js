@@ -8,6 +8,6 @@ const pageSchema = mongoose.Schema({
   description: String,
   widgets: [mongoose.Schema.Types.ObjectId],
   dateCreated: {type: Date, default: Date.now}
-}, {collection: 'website'});
+}, {collection: 'page'});
 
 module.exports = pageSchema;

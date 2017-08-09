@@ -1,27 +1,40 @@
 const _ = require('lodash');
 const express = require('express');
 const widgetRouter = require('./widget.service.server').router;
+const pageModel = require('../model/page/page.model.server');
 
 let router = express.Router({mergeParams: true});
 
 router.post('/', function(request, response){
-  response.send(createPage(request.params.websiteId, request.body));
+  pageModel.createPage(request.params.websiteId, request.body)
+    .then((createdPage) => {
+      response.send(createdPage);
+    });
 });
 
 router.get('/', function(request, response){
-  response.send(findAllPagesForWebsite(request.params.websiteId));
+  pageModel.findAllPagesForwebsite(request.params.websiteId)
+    .then((foundPages) => {
+      response.send(foundPages);
+    });
 });
 
 router.get('/:pageId', function(request, response){
-  let page = findPageById(request.params.pageId);
-  if (_.isUndefined(page)) return response.status(404).send('not found')
-  // response.send(findPageById(request.params.pageId));
-
-  response.send(page)
+  pageModel.findPageById(request.params.pageId)
+    .then((foundPage) => {
+      if(foundPage) {
+        response.send(foundPage);
+      } else {
+        response.status(404).send('not found')
+      }
+    });
 });
 
 router.put('/:pageId', function(request, response){
-  response.send(updatePage(request.params.pageId, request.body))
+  pageModel.updatePage(request.params.pageId, request.body)
+    .then((updatedPage) => {
+      response.send(updatedPage);
+    });
 });
 
 router.delete('/:pageId', function(request, response){
@@ -52,7 +65,10 @@ function updatePage(pageId, page){
 }
 
 function deletePage(pageId){
-  return _.remove(pages, (page) => _.isEqual(page._id, pageId));
+  pageModel.deletePage(pageId)
+    .then((pageDeletedSuccessfully) => {
+      response.send('page deleted')
+    });
 }
 
 
