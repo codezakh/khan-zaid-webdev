@@ -16,15 +16,22 @@ router.get('/', function(request, response){
     .then((foundWebsites) => {
       response.send(foundWebsites)
     });
-  // response.send(findAllWebsitesByUser(request.params.userId));
 });
 
 router.get('/:websiteId', function(request, response){
-  let website = findWebsiteById(request.params.websiteId);
-  // response.send(findWebsiteById(request.params.websiteId));
-  if (_.isUndefined(website)) return response.status(404).send('Not found');
-
-  return response.send(website)
+  websiteModel.findWebsiteById(request.params.websiteId)
+    .then((foundWebsite) => {
+      if (foundWebsite){
+        response.send(foundWebsite)
+      } else {
+        response.status(404).send('not found');
+      }
+    });
+  // let website = findWebsiteById(request.params.websiteId);
+  // // response.send(findWebsiteById(request.params.websiteId));
+  // if (_.isUndefined(website)) return response.status(404).send('Not found');
+  //
+  // return response.send(website)
 });
 
 router.put('/:websiteId', function(request, response){

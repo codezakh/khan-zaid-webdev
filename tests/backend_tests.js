@@ -211,19 +211,20 @@ describe('the websites endpoint', function(){
   });
 
   it("should let you find a website by id", function(){
-    return chai.request(server)
-      .post('/api/user/456/website')
-      .send({
-        name: "Swagbook",
-        description: "test website"
-      })
+    return setUpUser()
       .then(function(response){
+        let createdUser = response.body;
         return chai.request(server)
-          .get(`/api/website/${response.body._id}`)
+          .post(`/api/user/${createdUser._id}/website`)
           .then(function(response){
-            chai.expect(response).to.have.status(200);
-            chai.expect(response.body).to.have.property('description', "test website");
-            chai.expect(response.body).to.have.property('name', 'Swagbook');
+            let createdWebsite = response.body;
+            return chai.request(server)
+              .get(`/api/website/${createdWebsite._id}`)
+              .then(function(response){
+                chai.expect(response).to.have.status(200);
+                chai.expect(response.body).to.have.property('_id',
+                  createdWebsite._id)
+              })
           })
       })
   });
