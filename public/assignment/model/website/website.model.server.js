@@ -15,6 +15,7 @@ websiteModel.addPageToWebsite = addPageToWebsite;
 
 function createWebsite(userId, website){
   website._user = userId;
+  website.developerId = userId;
   let websitePersisted;
   return websiteModel.create(website)
     .then((createdWebsite) => {
