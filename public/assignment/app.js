@@ -16,10 +16,14 @@ router = function($routeProvider) {
             '/login',
             {templateUrl: "views/user/login.view.client.html"}
         )
-        .when(
-            '/register',
-            {templateUrl: "views/user/register.view.client.html"}
-        )
+      .when(
+        '/register',
+        {
+          templateUrl: "views/user/register.view.client.html",
+          controller: "RegisterController",
+          controllerAs: "model"
+        }
+      )
         .when(
             '/user/:uid',
             {
