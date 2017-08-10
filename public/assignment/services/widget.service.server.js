@@ -1,29 +1,46 @@
 const _ = require('lodash');
 const express = require('express');
+const widgetModel = require('../model/widget/widget.model.server');
 
 let router = express.Router({mergeParams: true});
 
 router.post('/', function(request, response){
-  response.send(createWidget(request.params.pageId, request.body));
+  widgetModel.createWidget(request.params.pageId, request.body)
+    .then((createdWidget) => {
+      response.send(createdWidget);
+    });
 });
 
 router.get('/', function(request, response){
-  response.send(findAllWidgetsForPage(request.params.pageId));
+  widgetModel.findAllWidgetsForPage(request.params.pageId)
+    .then((foundWidgets) => {
+      response.send(foundWidgets);
+    });
 });
 
 router.get('/:widgetId', function(request, response){
-  let widget = findWidgetById(request.params.widgetId);
-  if (_.isUndefined(widget)) return response.status(404).send('Not found');
-
-  response.send(widget);
+  widgetModel.findWidgetById(request.params.widgetId)
+    .then((foundWidget) => {
+      if (foundWidget) {
+        response.send(foundWidget);
+      } else {
+        response.status(404).send('widget not found');
+      }
+    });
 });
 
 router.put('/:widgetId', function(request, response){
-  response.send(updateWidget(request.params.widgetId, request.body));
+  widgetModel.updateWidget(request.params.widgetId, request.body)
+    .then((updatedWidget) => {
+      response.send(updatedWidget);
+    });
 });
 
 router.delete('/:widgetId', function(request, response){
-  response.send(deleteWidget(request.params.widgetId));
+  widgetModel.deleteWidget(request.params.widgetId)
+    .then((widgetDeleted) => {
+      response.send('widget deleted');
+    })
 });
 
 module.exports.reset = resetData;

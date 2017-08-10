@@ -38,7 +38,10 @@ router.put('/:pageId', function(request, response){
 });
 
 router.delete('/:pageId', function(request, response){
-  response.send(deletePage(request.params.pageId));
+  pageModel.deletePage(request.params.widgetId)
+    .then((pageDeleted) => {
+      response.send('page deleted')
+    });
 });
 
 router.use('/:pageId/widget', widgetRouter);
