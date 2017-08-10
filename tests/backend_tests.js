@@ -342,7 +342,6 @@ describe("the pages endpoint", function(){
         return chai.request(server)
           .get(`/api/page/${createdPage._id}`)
           .then(function(response){
-            console.log(response.body)
             chai.expect(response).to.have.status(200);
             chai.expect(response.body).to.have.property('_id',
               createdPage._id);
@@ -353,26 +352,25 @@ describe("the pages endpoint", function(){
       });
   });
 
-  // it("should let you update a page", function(){
-  //   return chai.request(server)
-  //     .post('/api/user/456/website/456/page')
-  //     .send({name: 'test post', description: 'henlo this is a description'})
-  //     .then(function(response){
-  //       chai.expect(response).to.have.status(200);
-  //       let createdPageId = response.body._id;
-  //       return chai.request(server)
-  //         .put(`/api/page/${createdPageId}`)
-  //         .send({name: 'updated name'})
-  //         .then(function(response){
-  //           return chai.request(server)
-  //             .get(`/api/page/${createdPageId}`)
-  //             .then(function(response){
-  //               chai.expect(response.body).to.have.property('name', 'updated name')
-  //             })
-  //         })
-  //     })
-  // });
-  //
+  it("should let you update a page", function(){
+    const testDataCreator = new setUpData();
+    return testDataCreator.setUpPage()
+      .then(function(response){
+        let createdPage = response.body;
+        return chai.request(server)
+          .put(`/api/page/${createdPage._id}`)
+          .send({name: 'changed name'})
+          .then(function(response){
+            return chai.request(server)
+              .get(`/api/page/${createdPage._id}`)
+              .then(function(response){
+                chai.expect(response).to.have.status(200);
+                chai.expect(response.body).to.have.property('name', 'changed name')
+              })
+          })
+      })
+  });
+
   // it("should let you delete a page", function(){
   //   return chai.request(server)
   //     .post('/api/user/456/website/456/page')
