@@ -11,6 +11,7 @@ pageModel.findPageById = findPageById;
 pageModel.findAllPagesForwebsite = findAllPagesForWebsite;
 pageModel.updatePage = updatePage;
 pageModel.deletePage = deletePage;
+pageModel.addWidgetToPage = addWidgetToPage;
 
 function createPage(websiteId, page) {
   page._website = websiteId;
@@ -43,6 +44,14 @@ function updatePage(pageId, page){
 
 function deletePage(pageId) {
   return pageModel.findOneAndRemove({_id: pageId});
+};
+
+function addWidgetToPage(pageId, widget){
+  return pageModel.findOne({_id: pageId})
+    .then((foundPage) => {
+      foundPage.widgets.push(widget._id);
+      return foundPage.save()
+    });
 };
 
 
