@@ -320,7 +320,6 @@ describe("the pages endpoint", function(){
           .get(`/api/user/${testDataCreator.createdWebsite._user}/website/${testDataCreator.createdWebsite._id}/page`)
       })
       .then(function(response){
-        console.log(response.body)
         chai.expect(response).to.have.status(200);
         chai.expect(response.body).to.have.lengthOf(1);
       });

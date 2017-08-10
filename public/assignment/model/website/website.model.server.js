@@ -15,12 +15,14 @@ websiteModel.addPageToWebsite = addPageToWebsite;
 
 function createWebsite(userId, website){
   website._user = userId;
+  let websitePersisted;
   return websiteModel.create(website)
     .then((createdWebsite) => {
+      websitePersisted = createdWebsite;
       userModel.addWebsiteToUser(userId, createdWebsite)
     })
     .then((websiteSaved) => {
-      return websiteModel.findOne(website._id)
+      return websiteModel.findOne(websitePersisted._id);
     })
 };
 

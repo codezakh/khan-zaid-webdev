@@ -15,12 +15,14 @@ pageModel.deletePage = deletePage;
 function createPage(websiteId, page) {
   page._website = websiteId;
   page.websiteId = websiteId;
+  let pagePersisted;
   return pageModel.create(page)
     .then((createdPage) => {
+      pagePersisted = createdPage;
       websiteModel.addPageToWebsite(websiteId, createdPage)
     })
     .then((pageSaved) => {
-      return pageModel.findOne(page._id)
+      return pageModel.findOne(pagePersisted._id)
     })
 };
 
