@@ -17,7 +17,7 @@ function createPage(websiteId, page) {
   page.websiteId = websiteId;
   return pageModel.create(page)
     .then((createdPage) => {
-      websiteModel.addPageToWebsite(websiteId, page)
+      websiteModel.addPageToWebsite(websiteId, createdPage)
     })
     .then((pageSaved) => {
       return pageModel.findOne(page._id)
