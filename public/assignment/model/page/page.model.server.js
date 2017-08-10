@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const db = require('../../../../test/app').db;
 const websiteModel = require('../website/website.model.server');
-const pageSchema = require('./Page.schema.server');
+const pageSchema = require('./page.schema.server');
 
 const pageModel = mongoose.model('pageModel', pageSchema);
 
