@@ -10,7 +10,9 @@ This repository was created for CS5610 during my last semester at Northeastern.
 # Hosted Heroku Environment
 <https://khan-zaid-webdev.herokuapp.com/>
 # Hosted Project
-Not yet implemented.
+<https://memedex-app.herokuapp.com>
+# Project Repository
+<https://github.com/codezakh/memedex>
 # Hosted Assignment
 <https://khan-zaid-webdev.herokuapp.com/>
 
